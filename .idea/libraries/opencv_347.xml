@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="opencv-347">
+    <CLASSES>
+      <root url="jar://E:/Downloads/opencv/build/java/opencv-347.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://E:/Downloads/opencv/build/java/x64" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://E:/Downloads/opencv/build/java/opencv-347.jar!/" />
+    </SOURCES>
+  </library>
+</component>
