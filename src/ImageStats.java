@@ -33,6 +33,7 @@ public class ImageStats {
         Mat matMask = new Mat();
         Imgcodecs imageCodecs = new Imgcodecs();
         Mat originalMask = imageCodecs.imread(maskPath);
+        System.out.println("originalMask = " + originalMask);
         Imgproc.resize(originalMask, matMask, new Size(90, 90));
         Imgproc.cvtColor(matMask, matMask, Imgproc.COLOR_BGR2GRAY);
         // Gaussian Blur for the to reduce noise

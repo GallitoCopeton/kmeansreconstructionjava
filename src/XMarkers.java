@@ -47,7 +47,7 @@ public class XMarkers {
         String cnnResults = "";
 
         //Mask for areas
-        String maskPath = "E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/mask_inv.png";
+        String maskPath = "D:/Unima/Proyectos/kmeansreconstructionjava/testPictures/mask_inv.png";
         Mat matMask = ImageStats.getMask(maskPath);
 
         List<Marker> markerResultAreas = new ArrayList<>();
