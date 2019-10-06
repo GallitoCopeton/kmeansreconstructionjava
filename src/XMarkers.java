@@ -164,7 +164,7 @@ public class XMarkers {
                     + "\nfilterByColor: " + 1
                     + "\nblobColor: " + 0
                     + "\nfilterByArea: " + 1
-                    + "\nminArea: " + 25
+                    + "\nminArea: " + 0
                     + "\nmaxArea: " + 5000
                     + "\nfilterByCircularity: " + 0
                     + "\nminCircularity: " + 8.0000001192092896e-001
