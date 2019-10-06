@@ -15,7 +15,6 @@ public class preProcessing {
         Mat gray = new Mat();
 
         Imgproc.cvtColor(imgMat, gray, Imgproc.COLOR_BGR2GRAY);
-        System.out.println(gray.size());
         Mat gaussian = new Mat();
         Imgproc.GaussianBlur(gray, gaussian, new Size(3, 3), 0);
 

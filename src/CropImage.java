@@ -40,7 +40,6 @@ public class CropImage {
             if (approxList.size() == 2) {
                 Mat imgMatPerspective = new Mat();
                 imgMatPerspective = perspectiveSquare.applyPerspectiveWhiteSquare(image, SquarePointsOrdered);
-                System.out.println("The square was found");
 
                 List<Point> bigSquare = new ArrayList<Point>();
                 List<Point> smallSquare = new ArrayList<Point>();
@@ -73,8 +72,6 @@ public class CropImage {
                 break;
             }
         }
-        if (biggestSquare == null)
-            System.out.println("biggestSquare = " + biggestSquare);
         return biggestSquare;
     }
 
@@ -88,12 +85,9 @@ public class CropImage {
          */
         FindContoursSquares findContoursSquares = new FindContoursSquares();
         thres = preProcessing.binarizeImage(mat);
-        System.out.println("thres = " + thres);
         List<List<Point>> listsOfPoints = findContoursSquares.FindTreeContours(thres);
         if (listsOfPoints.size() > 1) {
             listsOfPoints.remove(0);
-        } else {
-            System.out.println("listsOfPoints = " + listsOfPoints);
         }
 
         /**
@@ -122,8 +116,6 @@ public class CropImage {
                 String fileName = String.format("E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/marker%d.png", i);
                 Imgcodecs.imwrite(fileName, individualMat);
             }
-        } else {
-            System.out.println("matList = " + matList);
         }
 
         return matList;

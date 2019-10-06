@@ -41,7 +41,6 @@ public class FindContoursSquares {
                 }
 
             }
-            System.out.println("this is the size of  listsOfPoints BG " + listsOfPoints.size());
 
         } catch (Exception e) {
 
@@ -84,7 +83,6 @@ public class FindContoursSquares {
 
             }
 
-            System.out.println("this is the size of  approxList BGExternal " + approxList.size());
 
         } catch (Exception e) {
 

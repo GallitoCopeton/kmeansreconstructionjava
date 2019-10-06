@@ -88,7 +88,7 @@ public class XMarkers {
                 Core.bitwise_and(matMask, imgMat, matAnd);
                 //bitmapAnd = Bitmap.createBitmap(matAnd.cols(), matAnd.rows(), Bitmap.Config.RGB_565);
                 //Utils.matToBitmap(matAnd, bitmapAnd);
-
+/*
                 Mat Ero = new Mat();
                 Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
                 Imgproc.erode(matAnd, Ero, kernel);
@@ -97,10 +97,12 @@ public class XMarkers {
                 Imgproc.dilate(Ero, Dil, kernel);
                 Imgproc.dilate(Dil, Dil, kernel);
 
-                Core.bitwise_not(Dil, Dil);
-                String fileName = String.format("E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/dilatedBlobs%d.png", i);
-                Imgcodecs.imwrite(fileName, Dil);
-                blobDetector.detect(Dil, matOfKeyPoints);
+                Core.bitwise_not(Dil, Dil);*/
+                Mat matNot = new Mat();
+                Core.bitwise_not(matAnd, matNot);
+                String fileName = String.format("D:/Unima/Proyectos/kmeansreconstructionjava/testPictures/dilatedBlobs%d.png", i);
+                Imgcodecs.imwrite(fileName, matNot);
+                blobDetector.detect(matNot, matOfKeyPoints);
 
                 ////Areas thresholds algorithm
                 float diameterBlob = blobSaveDiameter(matOfKeyPoints);

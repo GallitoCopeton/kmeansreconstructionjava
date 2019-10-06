@@ -16,18 +16,15 @@ public class Main {
         File dir = new File(inputFolder);
         if (!dir.isDirectory()) {
             dir.mkdir();
-            System.out.println("dir = " + dir);
         }
         File[] files = new File(inputFolder).listFiles();
-        System.out.println("files = " + files);
         for (File file : files) {
             if (file.isFile()) {
+                System.out.println("file = " + file);
                 Mat originalImage = imageCodecs.imread(file.getAbsolutePath());
                 Mat biggestSquare = CropImage.findBiggestSquare(originalImage);
-                // Imgcodecs.imwrite("E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/bigSquare.png", biggestSquare);
                 int k = 3;
                 List<Mat> xmarkersMats = CropImage.findIndividualTests(biggestSquare, 4);
-                System.out.println(xmarkersMats.size());
                 List<Mat> kMeansReconstructedMarkers = new ArrayList<>();
                 Map<String, String> specificResults = new HashMap<>();
                 for (int i = 0; i < xmarkersMats.size(); i++) {
@@ -37,9 +34,6 @@ public class Main {
                     kMeansReconstructedMarkers.add(finalMat);
                 }
                 specificResults = XMarkers.individualAnalysis(xmarkersMats);
-                System.out.println("specificResults = " + specificResults);
-            } else {
-                System.out.println("File: " + file.getName());
             }
         }
         /*s
