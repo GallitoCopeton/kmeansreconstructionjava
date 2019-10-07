@@ -13,7 +13,7 @@ public class Main {
         // Para utilización de openCv
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Imgcodecs imageCodecs = new Imgcodecs();
-        String inputFolderName = "./inputImages/";
+        String inputFolderName = "./Negatives/";
         File inputFolder = new File(inputFolderName);
         if (!inputFolder.isDirectory()) {
             inputFolder.mkdir();
@@ -32,7 +32,7 @@ public class Main {
                 List<Mat> kMeansReconstructedMarkers = new ArrayList<>();
                 // Declaración hashmap de resultados
                 Map<String, String> specificResults = new HashMap<>();
-                int k = 3;
+                int k = 2;
                 for (int i = 0; i < xmarkersMats.size(); i++) {
                     // Reconstrucción de marcador con k centros/colores
                     Mat finalMat = Cluster.cluster(xmarkersMats.get(i), k);

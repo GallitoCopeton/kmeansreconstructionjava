@@ -89,7 +89,7 @@ public class XMarkers {
                 Core.bitwise_and(matMask, imgMat, matAnd);
                 // Transformaciones morfológicas
                 Mat transImage = new Mat();
-                Mat kernel1 = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2, 2));
+                Mat kernel1 = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
                 Mat kernel2 = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(2, 2));
                 Imgproc.morphologyEx(matAnd, transImage, Imgproc.MORPH_OPEN, kernel1);
                 Imgproc.morphologyEx(transImage, transImage, Imgproc.MORPH_DILATE, kernel2);

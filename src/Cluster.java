@@ -19,7 +19,7 @@ public class Cluster {
         TermCriteria criteria = new TermCriteria(TermCriteria.EPS + TermCriteria.MAX_ITER, 10, 1);
 
         Mat centers = new Mat();
-        Core.kmeans(samples32f, k, labels, criteria, 10, Core.KMEANS_RANDOM_CENTERS, centers);
+        Core.kmeans(samples32f, k, labels, criteria, 20, Core.KMEANS_RANDOM_CENTERS, centers);
         return showClusters(cutout, labels, centers);
     }
 
