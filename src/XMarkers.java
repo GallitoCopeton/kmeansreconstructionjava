@@ -67,12 +67,13 @@ public class XMarkers {
             // gray scales for the image
             Imgproc.cvtColor(imgMat, imgMat, Imgproc.COLOR_BGR2GRAY);
 
-            // Gaussian Blur for the to reduce noise
-            Imgproc.GaussianBlur(imgMat, imgMat, new Size(3, 3), 0);
+//            // Gaussian Blur for the to reduce noise
+//            Imgproc.GaussianBlur(imgMat, imgMat, new Size(3, 3), 0);
 
             // apply the threshold
-            Imgproc.threshold(imgMat, imgMat, 0, 255, Imgproc.THRESH_BINARY + Imgproc.THRESH_OTSU);
-
+            Imgproc.threshold(imgMat, imgMat, 150, 255, Imgproc.THRESH_BINARY);
+            String fileNameBina = String.format("D:/Unima/Proyectos/kMeansReconstructionJava/testPictures/kMeansBina%d.png", i);
+            Imgcodecs.imwrite(fileNameBina, imgMat);
             //bitmapBinarize = Bitmap.createBitmap(imgMat.cols(), imgMat.rows(), Bitmap.Config.RGB_565);
             //Utils.matToBitmap(imgMat, bitmapBinarize);
 
@@ -83,26 +84,20 @@ public class XMarkers {
 
 
             if (percentaje > PERCENTAGE) {
-
+                // Multiplicación por máscara
                 Mat matAnd = new Mat();
                 Core.bitwise_and(matMask, imgMat, matAnd);
-                //bitmapAnd = Bitmap.createBitmap(matAnd.cols(), matAnd.rows(), Bitmap.Config.RGB_565);
-                //Utils.matToBitmap(matAnd, bitmapAnd);
-/*
-                Mat Ero = new Mat();
-                Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
-                Imgproc.erode(matAnd, Ero, kernel);
-
-                Mat Dil = new Mat();
-                Imgproc.dilate(Ero, Dil, kernel);
-                Imgproc.dilate(Dil, Dil, kernel);
-
-                Core.bitwise_not(Dil, Dil);*/
-                Mat matNot = new Mat();
-                Core.bitwise_not(matAnd, matNot);
+                // Transformaciones morfológicas
+                Mat transImage = new Mat();
+                Mat kernel1 = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2, 2));
+                Mat kernel2 = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(2, 2));
+                Imgproc.morphologyEx(matAnd, transImage, Imgproc.MORPH_OPEN, kernel1);
+                Imgproc.morphologyEx(transImage, transImage, Imgproc.MORPH_DILATE, kernel2);
+                // Inversión de colores
+                Core.bitwise_not(transImage, transImage);
                 String fileName = String.format("D:/Unima/Proyectos/kmeansreconstructionjava/testPictures/dilatedBlobs%d.png", i);
-                Imgcodecs.imwrite(fileName, matNot);
-                blobDetector.detect(matNot, matOfKeyPoints);
+                Imgcodecs.imwrite(fileName, transImage);
+                blobDetector.detect(transImage, matOfKeyPoints);
 
                 ////Areas thresholds algorithm
                 float diameterBlob = blobSaveDiameter(matOfKeyPoints);
@@ -164,8 +159,9 @@ public class XMarkers {
                     + "\nfilterByColor: " + 1
                     + "\nblobColor: " + 0
                     + "\nfilterByArea: " + 1
-                    + "\nminArea: " + 0
+                    + "\nminArea: " + 20
                     + "\nmaxArea: " + 5000
+                    + "\nminDistance: " + 0
                     + "\nfilterByCircularity: " + 0
                     + "\nminCircularity: " + 8.0000001192092896e-001
                     + "\nmaxCircularity: " + 3.4028234663852886e+038

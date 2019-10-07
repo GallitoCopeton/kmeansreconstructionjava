@@ -10,42 +10,38 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
+        // Para utilización de openCv
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Imgcodecs imageCodecs = new Imgcodecs();
-        String inputFolder = "./inputImages/";
-        File dir = new File(inputFolder);
-        if (!dir.isDirectory()) {
-            dir.mkdir();
+        String inputFolderName = "./inputImages/";
+        File inputFolder = new File(inputFolderName);
+        if (!inputFolder.isDirectory()) {
+            inputFolder.mkdir();
         }
-        File[] files = new File(inputFolder).listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                System.out.println("file = " + file);
-                Mat originalImage = imageCodecs.imread(file.getAbsolutePath());
+        File[] listImages = new File(inputFolderName).listFiles();
+        for (File image : listImages) {
+            if (image.isFile()) {
+                System.out.println("Name of image = " + image);
+                // Leer imagen original
+                Mat originalImage = imageCodecs.imread(image.getAbsolutePath());
+                // Obtener cuadro de prueba
                 Mat biggestSquare = CropImage.findBiggestSquare(originalImage);
-                int k = 3;
+                // Obtener cuadros de prueba individuales
                 List<Mat> xmarkersMats = CropImage.findIndividualTests(biggestSquare, 4);
+                // Declaración de marcadores reconstruidos
                 List<Mat> kMeansReconstructedMarkers = new ArrayList<>();
+                // Declaración hashmap de resultados
                 Map<String, String> specificResults = new HashMap<>();
+                int k = 3;
                 for (int i = 0; i < xmarkersMats.size(); i++) {
+                    // Reconstrucción de marcador con k centros/colores
                     Mat finalMat = Cluster.cluster(xmarkersMats.get(i), k);
-                    String fileName = String.format("E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/kMeans%d.png", i);
+                    String fileName = String.format("D:/Unima/Proyectos/kMeansReconstructionJava/testPictures/kMeans%d.png", i);
                     Imgcodecs.imwrite(fileName, finalMat);
                     kMeansReconstructedMarkers.add(finalMat);
                 }
-                specificResults = XMarkers.individualAnalysis(xmarkersMats);
+                specificResults = XMarkers.individualAnalysis(kMeansReconstructedMarkers);
             }
         }
-        /*s
-        String path = "E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/test.jpg";
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Imgcodecs imageCodecs = new Imgcodecs();
-        Mat originalImage = imageCodecs.imread(path);
-        System.out.println("originalImage = " + originalImage);
-        */
-
-
     }
-
-
 }

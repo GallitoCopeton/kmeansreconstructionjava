@@ -6,13 +6,12 @@ import java.util.Map;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.core.TermCriteria;
 
 public class Cluster {
 
     public static Mat cluster(Mat cutout, int k) {
+
         Mat samples = cutout.reshape(1, cutout.cols() * cutout.rows());
         Mat samples32f = new Mat();
         samples.convertTo(samples32f, CvType.CV_32F, 1.0 / 255.0);
@@ -44,8 +43,23 @@ public class Cluster {
                 rows++;
             }
         }
-        Mat finalMat = new Mat();
-        Core.addWeighted(clusters.get(0),1, clusters.get(1), 1, 0, finalMat);
-        return finalMat;
+
+        if (clusters.size() == 1) return clusters.get(0);
+        else {
+            Mat finalMat = new Mat();
+            for (int i = 0; i < clusters.size(); i++) {
+                if (i == 0) {
+                    Core.addWeighted(clusters.get(i), 1, clusters.get(i + 1), 1, 0, finalMat);
+                } else {
+                    try {
+                        Core.addWeighted(finalMat, 1, clusters.get(i + 1), 1, 0, finalMat);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+            }
+            return finalMat;
+        }
+
     }
 }
