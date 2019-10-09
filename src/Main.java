@@ -13,11 +13,7 @@ public class Main {
         // Para utilización de openCv
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Imgcodecs imageCodecs = new Imgcodecs();
-        String inputFolderName = "./Negatives/";
-        File inputFolder = new File(inputFolderName);
-        if (!inputFolder.isDirectory()) {
-            inputFolder.mkdir();
-        }
+        String inputFolderName = "../Negatives/";
         File[] listImages = new File(inputFolderName).listFiles();
         for (File image : listImages) {
             if (image.isFile()) {
@@ -26,6 +22,8 @@ public class Main {
                 Mat originalImage = imageCodecs.imread(image.getAbsolutePath());
                 // Obtener cuadro de prueba
                 Mat biggestSquare = CropImage.findBiggestSquare(originalImage);
+                // Ecualizar histograma
+                //biggestSquare = preProcessing.equalizeHistogram(biggestSquare);
                 // Obtener cuadros de prueba individuales
                 List<Mat> xmarkersMats = CropImage.findIndividualTests(biggestSquare, 4);
                 // Declaración de marcadores reconstruidos
@@ -34,9 +32,9 @@ public class Main {
                 Map<String, String> specificResults = new HashMap<>();
                 int k = 2;
                 for (int i = 0; i < xmarkersMats.size(); i++) {
-                    // Reconstrucción de marcador con k centros/colores
+                    // Reconstrucción d           e marcador con k centros/colores
                     Mat finalMat = Cluster.cluster(xmarkersMats.get(i), k);
-                    String fileName = String.format("D:/Unima/Proyectos/kMeansReconstructionJava/testPictures/kMeans%d.png", i);
+                    String fileName = String.format("../testPictures/kMeans%d.png", i);
                     Imgcodecs.imwrite(fileName, finalMat);
                     kMeansReconstructedMarkers.add(finalMat);
                 }

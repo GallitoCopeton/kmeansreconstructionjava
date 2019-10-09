@@ -113,7 +113,7 @@ public class CropImage {
                 // scale the image
                 Imgproc.resize(individualMat, individualMat, new Size(90, 90));
                 matList.add(individualMat);
-                String fileName = String.format("E:/Unima/Proyectos/kMeansReconstructionJava/testPictures/marker%d.png", i);
+                String fileName = String.format("../testPictures/marker%d.png", i);
                 Imgcodecs.imwrite(fileName, individualMat);
             }
         }

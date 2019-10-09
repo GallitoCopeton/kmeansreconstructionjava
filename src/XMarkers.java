@@ -47,7 +47,7 @@ public class XMarkers {
         String cnnResults = "";
 
         //Mask for areas
-        String maskPath = "D:/Unima/Proyectos/kmeansreconstructionjava/testPictures/mask_inv.png";
+        String maskPath = "../testPictures/mask_inv.png";
         Mat matMask = ImageStats.getMask(maskPath);
 
         List<Marker> markerResultAreas = new ArrayList<>();
@@ -72,7 +72,7 @@ public class XMarkers {
 
             // apply the threshold
             Imgproc.threshold(imgMat, imgMat, 150, 255, Imgproc.THRESH_BINARY);
-            String fileNameBina = String.format("D:/Unima/Proyectos/kMeansReconstructionJava/testPictures/kMeansBina%d.png", i);
+            String fileNameBina = String.format("../testPictures/kMeansBina%d.png", i);
             Imgcodecs.imwrite(fileNameBina, imgMat);
             //bitmapBinarize = Bitmap.createBitmap(imgMat.cols(), imgMat.rows(), Bitmap.Config.RGB_565);
             //Utils.matToBitmap(imgMat, bitmapBinarize);
@@ -89,13 +89,13 @@ public class XMarkers {
                 Core.bitwise_and(matMask, imgMat, matAnd);
                 // Transformaciones morfológicas
                 Mat transImage = new Mat();
-                Mat kernel1 = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
+                Mat kernel1 = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2, 2));
                 Mat kernel2 = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(2, 2));
                 Imgproc.morphologyEx(matAnd, transImage, Imgproc.MORPH_OPEN, kernel1);
                 Imgproc.morphologyEx(transImage, transImage, Imgproc.MORPH_DILATE, kernel2);
                 // Inversión de colores
                 Core.bitwise_not(transImage, transImage);
-                String fileName = String.format("D:/Unima/Proyectos/kmeansreconstructionjava/testPictures/dilatedBlobs%d.png", i);
+                String fileName = String.format("../testPictures/dilatedBlobs%d.png", i);
                 Imgcodecs.imwrite(fileName, transImage);
                 blobDetector.detect(transImage, matOfKeyPoints);
 
