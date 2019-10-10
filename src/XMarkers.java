@@ -161,7 +161,6 @@ public class XMarkers {
                     + "\nfilterByArea: " + 1
                     + "\nminArea: " + 20
                     + "\nmaxArea: " + 5000
-                    + "\nminDistance: " + 0
                     + "\nfilterByCircularity: " + 0
                     + "\nminCircularity: " + 8.0000001192092896e-001
                     + "\nmaxCircularity: " + 3.4028234663852886e+038

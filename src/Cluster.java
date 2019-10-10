@@ -16,10 +16,10 @@ public class Cluster {
         Mat samples32f = new Mat();
         samples.convertTo(samples32f, CvType.CV_32F, 1.0 / 255.0);
         Mat labels = new Mat();
-        TermCriteria criteria = new TermCriteria(TermCriteria.MAX_ITER, 100, 100);
+        TermCriteria criteria = new TermCriteria(TermCriteria.MAX_ITER, 1000, 100);
 
         Mat centers = new Mat();
-        Core.kmeans(samples32f, k, labels, criteria, 10, Core.KMEANS_RANDOM_CENTERS, centers);
+        Core.kmeans(samples32f, k, labels, criteria, 80, Core.KMEANS_RANDOM_CENTERS, centers);
         return showClusters(cutout, labels, centers);
     }
 
