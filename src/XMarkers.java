@@ -40,12 +40,8 @@ public class XMarkers {
      */
     public static Map<String, String> individualAnalysis(List<Mat> xmarkers) {
 
-
         Map<String, String> resultsMap = new HashMap<String, String>();
-
         String areasResults = "";
-        String cnnResults = "";
-
         //Mask for areas
         String maskPath = "../testPictures/mask_inv.png";
         Mat matMask = ImageStats.getMask(maskPath);
@@ -114,7 +110,6 @@ public class XMarkers {
             }
         }
         resultsMap.put("areasResults", areasResults);
-        resultsMap.put("cnnResults", cnnResults);
         System.out.println("markerResultAreas = " + markerResultAreas);
         return resultsMap;
     }
@@ -159,7 +154,7 @@ public class XMarkers {
                     + "\nfilterByColor: " + 1
                     + "\nblobColor: " + 0
                     + "\nfilterByArea: " + 1
-                    + "\nminArea: " + 20
+                    + "\nminArea: " + 25
                     + "\nmaxArea: " + 5000
                     + "\nfilterByCircularity: " + 0
                     + "\nminCircularity: " + 8.0000001192092896e-001

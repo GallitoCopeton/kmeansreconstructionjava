@@ -14,6 +14,9 @@ public class Main {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Imgcodecs imageCodecs = new Imgcodecs();
         String inputFolderName = "../Positives/";
+        File destFolder = new File("E:/Unima/Proyectos/jupyter_notebooks/App Process/Java Python Leveling/clusterImagesJava");
+        String destPath = "E:/Unima/Proyectos/jupyter_notebooks/App Process/Java Python Leveling/clusterImagesJava/";
+        if (!destFolder.exists()) destFolder.mkdir();
         File[] listImages = new File(inputFolderName).listFiles();
         for (File image : listImages) {
             if (image.isFile()) {
@@ -32,10 +35,10 @@ public class Main {
                 Map<String, String> specificResults = new HashMap<>();
                 int k = 3;
                 for (int i = 0; i < xmarkersMats.size(); i++) {
-                    // Reconstrucción d           e marcador con k centros/colores
+                    // Reconstrucción de marcador con k centros/colores
                     Mat finalMat = Cluster.cluster(xmarkersMats.get(i), k);
-                    String fileName = String.format("../testPictures/kMeans%d.png", i);
-                    Imgcodecs.imwrite(fileName, finalMat);
+                    String markerName = String.format("JAVA_%s_marker_%d.png", image.getName(), i+1);
+                    Imgcodecs.imwrite(destPath+markerName, finalMat);
                     kMeansReconstructedMarkers.add(finalMat);
                 }
                 specificResults = XMarkers.individualAnalysis(kMeansReconstructedMarkers);
